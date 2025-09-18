@@ -48,7 +48,28 @@ Polynomial add_polynomial(Polynomial A, Polynomial B){
     }
     free(coeff);
     return C;
+}
 
+Polynomial multi_polynomial(Polynomial A, Polynomial B){
+    int result_exp = A->exp + B->exp;  // New maximum exponent is sum of exponents
+    int *coeff = malloc(sizeof(int) * (result_exp + 1));
+
+    // Initialize all coefficients to 0
+    for (int i = 0; i <= result_exp; i++) {
+        coeff[i] = 0;
+    }
+
+    // Multiply each term of A with each term of B
+    for (int i = 0; i <= A->exp; i++) {
+        for (int j = 0; j <= B->exp; j++) {
+            // When multiplying x^i with x^j, we get x^(i+j)
+            coeff[i + j] += A->coeff[i] * B->coeff[j];
+        }
+    }
+
+    Polynomial C = create(result_exp, coeff);
+    free(coeff);
+    return C;
 }
 
 int main(){
@@ -59,8 +80,9 @@ int main(){
     Polynomial B = create(3, coeff_2);
 
     show(add_polynomial(A,B));
+    
+    printf("Product of polynomials: ");
+    show(multi_polynomial(A,B));
 
-    show(A);
     return 0;
 }
-
