@@ -1,17 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+//  Tạo một cái struct
 struct Polynomial_Info{
-    int exp;
-    int *coeff;
+    int exp; // khai báo hàm mũ
+    int *coeff; // con trỏ tới 1 mảng số nguyên và gán cho nó là giá trị
 };
 
 typedef struct Polynomial_Info *Polynomial;
 
 Polynomial create(int exp, int coeff[]){
+    // Cấp phát bộ nhớ động
     Polynomial P = malloc(sizeof(struct Polynomial_Info));
+    // Gán giá trị bậc cao nhất cho exp của P
     P->exp = exp;
+    
     P->coeff = malloc(sizeof(int) * (exp + 1));
     for (int i = 0; i <= exp; i++)
         P->coeff[i] = coeff[i];
