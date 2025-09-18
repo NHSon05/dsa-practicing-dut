@@ -51,11 +51,11 @@ Polynomial add_polynomial(Polynomial A, Polynomial B){
 }
 
 Polynomial multi_polynomial(Polynomial A, Polynomial B){
-    int result_exp = A->exp + B->exp;  // New maximum exponent is sum of exponents
-    int *coeff = malloc(sizeof(int) * (result_exp + 1));
+    int max_exp = A->exp + B->exp;  // New maximum exponent is sum of exponents
+    int *coeff = malloc(sizeof(int) * (max_exp + 1));
 
     // Initialize all coefficients to 0
-    for (int i = 0; i <= result_exp; i++) {
+    for (int i = 0; i <= max_exp; i++) {
         coeff[i] = 0;
     }
 
@@ -67,7 +67,7 @@ Polynomial multi_polynomial(Polynomial A, Polynomial B){
         }
     }
 
-    Polynomial C = create(result_exp, coeff);
+    Polynomial C = create(max_exp, coeff);
     free(coeff);
     return C;
 }
