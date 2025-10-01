@@ -45,15 +45,23 @@ List create() {
 // }
 
 void insert(List pL, struct Person e, Position p){
+    // Cấp phát bộ nhớ
     Position newNode = (struct Node*) malloc(sizeof(struct Node));
+    // Gán thông tin người cho newNode
     newNode->data = e;
+    // Trường hợp p bằng NULL => Gán cho giá trị tiếp theo của p
     if (p == NULL)
         p = pL;
+    // cho node mới trỏ tới node đứng sau p
     newNode->next = p -> next;
-    newNode->prev = p;
-    p->next = newNode;
+    // cho node mới trỏ ngược lại p
+    newNode->prev = p; // -> Node mới được chèn ngay sau p
+    p->next = newNode;  // cho p trỏ tới newNode 
+    //  Liên kết xuôi hoàn tất p -> newNode -> ...
     if (newNode->next != NULL)
         newNode->next->prev = newNode;
+    // nếu sau newNode còn node thì node đó phải cập nhật để tro về newNode
+    // Tính liên kết dược đảm bảo
 }
 
 // In toàn bộ danh sách
