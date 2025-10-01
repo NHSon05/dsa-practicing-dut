@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+// struct Polynomial{
+//     int exp;
+    
+// }
 typedef struct Polynomial {
     int exp;   
     int *coeff; 

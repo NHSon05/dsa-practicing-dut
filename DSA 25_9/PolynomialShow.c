@@ -68,7 +68,6 @@ Polynomial multi(Polynomial A, Polynomial B){
     temp = B->next;
     while (A != NULL) {
         B = B->next;
-
         while (B != NULL){
             add(M, A->coeff * B->coeff, A->exp + B->exp);
             B = B->next;

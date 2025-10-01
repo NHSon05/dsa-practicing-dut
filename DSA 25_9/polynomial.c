@@ -14,7 +14,6 @@ Polynomial create(int exp, int coeff[]){
     Polynomial P = malloc(sizeof(struct Polynomial_Info));
     // Gán giá trị bậc cao nhất cho exp của P
     P->exp = exp;
-    
     P->coeff = malloc(sizeof(int) * (exp + 1));
     for (int i = 0; i <= exp; i++)
         P->coeff[i] = coeff[i];
@@ -22,9 +21,18 @@ Polynomial create(int exp, int coeff[]){
 }
 
 void show(Polynomial P) {
-    for (int i = P->exp; i >= 0; i--)
-        if (P->coeff[i] != 0)
-            printf("%dx^%d ", P->coeff[i], i);
+    int first = 1;
+    for (int i = P->exp; i >= 0; i--){
+
+        if (P->coeff[i] != 0){
+            if (!first) printf("+");
+            if (i == 0) printf("%d,", P->coeff[i]);
+            else if ( i == 1) printf("%dx", P->coeff[i]);
+            else printf("%dx^%d", P->coeff[i], i);
+            first = 0;
+        }
+    }
+    if (first) printf("0");
     printf("\n");
 }
 
@@ -75,10 +83,15 @@ Polynomial multi_polynomial(Polynomial A, Polynomial B){
 int main(){
     int coeff_1[] = {10,4,0,7};
     Polynomial A = create(3, coeff_1);
+    printf("A(x): ");
+    show(A);
 
     int coeff_2[] = {11,1,0,1};
     Polynomial B = create(3, coeff_2);
+    printf("B(x): ");
+    show(B);
 
+    printf("Sum of polynomials: ");
     show(add_polynomial(A,B));
     
     printf("Product of polynomials: ");
