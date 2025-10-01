@@ -2,38 +2,58 @@
 #include <stdlib.h>
 #include <string.h>
 
+// ------------------- PHẦN KHAI BÁO -----------------------
 struct Person {
-    char CCCD[20];
-    char name[50];
-    char stockCode[20];
-    int shares;
+    char CCCD[20];      // Khai báo biến CCCD chứa 20 kí tự
+    char name[50];      // Khai báo tên với 50 ký tự
+    char stockCode[20]; // Khai báo mã chứng khoáng với 20 kí tự
+    int shares;         // Khai báo số lượng cổ phiếu
 };
 
 struct Node {
-    struct Person data;
-    struct Node* prev;
-    struct Node* next;
+    struct Person data; // Dữ liệu người
+    struct Node* prev;  // Con trỏ trỏ tới nút trước
+    struct Node* next;  // Con trỏ trỏ tới nút sau
 };
 
-typedef struct Node* List;
-typedef struct Node* Position;
+typedef struct Node* List;  //  Con trỏ trỏ đến một struct Node: typedef cho phép đặt tên mới cho 1 kiểu dữ liệu
+typedef struct Node* Position;  // Tương tự trỏ tới địa chỉ
+// ------------------------------------------------------------
 
 // Tạo danh sách rỗng có header
 List create() {
-    List header = (struct Node*) malloc(sizeof(struct Node));
+    Position header = malloc(sizeof(struct Node)); // cấp phat bộ nhớ với khối lượng đủ lớn để chứa một cấu trúc node
+    // List header = (struct Node*) malloc(sizeof(struct Node)); // Cấp bộ nhớ cho kiểu dữ liệu này
     header->next = NULL;
     header->prev = NULL;
     return header;
 }
 
 // Thêm một người vào sau header
-void insert(List pL, struct Person p) {
+// Chèn node mới chứa dữ liệu Person p sau node pL
+// void insert(List pL, struct Person p) {
+//     // Tạo ra một node rỗng mới
+//     Position newNode = (struct Node*) malloc(sizeof(struct Node));
+//     // gán dữ liệu p cho node mới
+//     newNode->data = p;
+//     // Cho newNode này thành pL
+//     newNode->next = pL->next;
+//     // Cho node mới này trả về ngược lại node pL
+//     newNode->prev = pL;
+//     if (pL->next != NULL) pL->next->prev = newNode;
+//     pL->next = newNode;
+// }
+
+void insert(List pL, struct Person e, Position p){
     Position newNode = (struct Node*) malloc(sizeof(struct Node));
-    newNode->data = p;
-    newNode->next = pL->next;
-    newNode->prev = pL;
-    if (pL->next != NULL) pL->next->prev = newNode;
-    pL->next = newNode;
+    newNode->data = e;
+    if (p == NULL)
+        p = pL;
+    newNode->next = p -> next;
+    newNode->prev = p;
+    p->next = newNode;
+    if (newNode->next != NULL)
+        newNode->next->prev = newNode;
 }
 
 // In toàn bộ danh sách
@@ -98,9 +118,9 @@ int main() {
     struct Person p1 = {"001", "Nguuyen Thai Phu", "VCB", 1000};
     struct Person p2 = {"002", "Pham Tien", "VCB", 2000};
     struct Person p3 = {"003", "Cuong", "FPT", 1500};
-    insert(pL, p1);
-    insert(pL, p2);
-    insert(pL, p3);
+    insert(pL, p1, NULL);
+    insert(pL, p2, NULL);
+    insert(pL, p3, NULL);
 
     printf("Danh sách:\n");
     show(pL);

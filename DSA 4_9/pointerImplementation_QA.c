@@ -20,7 +20,7 @@ List create(){
 	header->next = NULL;
 	return header;
 }
-void Insert (List pL, struct ElementType e, Position p) {
+void Insert(List pL, struct ElementType e, Position p) {
 	Position newItem= malloc(sizeof(struct Node));
     newItem->e = e;
     if (p == NULL )
