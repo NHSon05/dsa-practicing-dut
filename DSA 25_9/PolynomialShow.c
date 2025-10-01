@@ -61,6 +61,24 @@ Polynomial sum(Polynomial A, Polynomial B) {
     return S;
 }
 
+Polynomial multi(Polynomial A, Polynomial B){
+    Polynomial M =  create();
+    A = A->next;
+    Node temp;
+    temp = B->next;
+    while (A != NULL) {
+        B = B->next;
+
+        while (B != NULL){
+            add(M, A->coeff * B->coeff, A->exp + B->exp);
+            B = B->next;
+        }
+        B = temp;
+        A = A->next;
+    }
+    return M;
+}
+
 int main(){
     int coeff_1[] = {10,4,0,7};
     Polynomial A = create();
@@ -81,5 +99,8 @@ int main(){
     printf("\n");
     Polynomial S = sum(A,B);
     Show(S);
+    printf("\n");
+    Polynomial M = multi(A,B);
+    Show(M);
     return 0;
 }
