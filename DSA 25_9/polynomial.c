@@ -7,8 +7,10 @@ struct Polynomial_Info{
     int *coeff; // con trỏ tới 1 mảng số nguyên và gán cho nó là giá trị
 };
 
+// Định nghĩa cho kiểu dữ liệu
 typedef struct Polynomial_Info *Polynomial;
 
+// Tạo một đa thức mới
 Polynomial create(int exp, int coeff[]){
     // Cấp phát bộ nhớ động
     Polynomial P = malloc(sizeof(struct Polynomial_Info));
@@ -23,7 +25,6 @@ Polynomial create(int exp, int coeff[]){
 void show(Polynomial P) {
     int first = 1;
     for (int i = P->exp; i >= 0; i--){
-
         if (P->coeff[i] != 0){
             if (!first) printf("+");
             if (i == 0) printf("%d,", P->coeff[i]);
@@ -37,22 +38,22 @@ void show(Polynomial P) {
 }
 
 Polynomial add_polynomial(Polynomial A, Polynomial B){
+    // Tạo mới số mũ và hệ so cho đa thức C
     int max_exp = A -> exp > B -> exp ? A->exp : B->exp;
     int *coeff = malloc(sizeof(int) * (max_exp + 1));
 
+    // Khởi tạo mảng coeff về 0
     for (int i = 0; i <= max_exp; i++) {
         coeff[i] = 0;
-        // int a_coeff = (i <= A->exp) ? A->coeff[i] : 0;
-        // int b_coeff = (i <= B->exp) ? B->coeff[i] : 0;
-        // coeff[i] = a_coeff + b_coeff;
     }
+    // Tạo mới một Polynomial C gồm hệ số max_exp và coeff
     Polynomial C = create(max_exp, coeff);
-    for (int j = 0; j<=max_exp; j++){
-        if (j> A->exp)
-            C->coeff[j] = B->coeff[j];
-        else if (j>B->exp)
-            C->coeff[j] = A -> coeff[j];
-        else    C->coeff[j] = A->coeff[j] + B->coeff[j];
+    for (int i = 0; i<=max_exp; i++){
+        if (i > A->exp)
+            C->coeff[i] = B->coeff[i];
+        else if (i>B->exp)
+            C->coeff[i] = A -> coeff[i];
+        else    C->coeff[i] = A->coeff[i] + B->coeff[i];
     }
     free(coeff);
     return C;
@@ -60,6 +61,7 @@ Polynomial add_polynomial(Polynomial A, Polynomial B){
 
 Polynomial multi_polynomial(Polynomial A, Polynomial B){
     int max_exp = A->exp + B->exp;  // New maximum exponent is sum of exponents
+    // Để lấy đa thức kết quả C có bậc cao nhất
     int *coeff = malloc(sizeof(int) * (max_exp + 1));
 
     // Initialize all coefficients to 0
