@@ -1,6 +1,8 @@
 // #include <bits/stdc++.h>
 #include <iostream>
 #include <stack>
+#include <string>
+#include <sstream>
 using namespace std;
 // LIFO: Last in the first out
 // push
@@ -9,20 +11,22 @@ using namespace std;
 // size
 // empty
 // O(1)
-
+// python java php c++ js
+// js c++ php java python
 
 int main() {
-    int n;
-    cin >> n;
-    // cin >> n;
-    stack<int> st;
-    while ( n!= 0 ){
-        st.push(n%2);
-        n/=2;
+    string s;
+    getline(cin, s);
+    stringstream ss(s);
+    string token;
+    stack<string> st;
+    while (ss >> token){
+        st.push(token);
     }
     while (!st.empty()){
-        cout << st.top();
+        cout << st.top() << " ";
         st.pop();
     }
+
     return 0;
 }
